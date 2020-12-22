@@ -26,3 +26,5 @@ class QuranService {
     });
   }
 }
+
+export const quranService = new QuranService()
