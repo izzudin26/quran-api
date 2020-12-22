@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import path from "path";
 import { surah, SurahName } from "../model/index";
 
 class QuranService {
@@ -6,7 +7,10 @@ class QuranService {
     return new Promise((resolve, reject) => {
       try {
         let response = JSON.parse(
-          fs.readFileSync("../data/surah.json", "utf-8")
+          fs.readFileSync(
+            path.resolve(__dirname, "../../data/surah.json"),
+            "utf-8"
+          )
         );
         resolve(response);
       } catch (error) {
@@ -18,13 +22,18 @@ class QuranService {
   getSurah(surahNumber: number): Promise<SurahName> {
     return new Promise((resolve, reject) => {
       try {
-          let responseSurahName = JSON.parse(fs.readFileSync(`../data/surah/${surahNumber}.json`, "utf-8"))
-          resolve(responseSurahName)
+        let responseSurahName = JSON.parse(
+          fs.readFileSync(
+            path.resolve(__dirname, `../../data/surah/${surahNumber}.json`),
+            "utf-8"
+          )
+        );
+        resolve(responseSurahName);
       } catch (error) {
-          reject(error)
+        reject("Not Found");
       }
     });
   }
 }
 
-export const quranService = new QuranService()
+export const quranService = new QuranService();
