@@ -4,9 +4,9 @@ import { surah, SurahName } from "../model/index";
 
 class QuranService {
   getAllSurah(): Promise<surah[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        let response = JSON.parse(
+        let response = await JSON.parse(
           fs.readFileSync(
             path.resolve(__dirname, "../../data/surah.json"),
             "utf-8"
@@ -21,8 +21,9 @@ class QuranService {
 
   getSurah(surahNumber: number): Promise<SurahName> {
     return new Promise((resolve, reject) => {
+      let responseSurahName;
       try {
-        let responseSurahName = JSON.parse(
+        responseSurahName = JSON.parse(
           fs.readFileSync(
             path.resolve(__dirname, `../../data/surah/${surahNumber}.json`),
             "utf-8"
@@ -30,7 +31,11 @@ class QuranService {
         );
         resolve(responseSurahName);
       } catch (error) {
-        reject("Not Found");
+        if (error.code === "ENOENT") {
+          reject("Not Found");
+        } else {
+          throw error;
+        }
       }
     });
   }

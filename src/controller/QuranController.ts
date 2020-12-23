@@ -18,7 +18,8 @@ class QuranController {
       let response = await quranService.getSurah(numberSurah);
       return res.json(response).status(200);
     } catch (error) {
-      return res.send({ message: error }).status(500);
+      if (error == "Not Found") res.status(404).send({ message: error });
+      return res.status(500).send({ message: error });
     }
   }
 }
