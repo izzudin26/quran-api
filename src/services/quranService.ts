@@ -14,7 +14,8 @@ class QuranService {
         );
         resolve(response);
       } catch (error) {
-        reject(error);
+        console.log("Failed Find Surah.json");
+        throw new Error("Failed find surahData");
       }
     });
   }
@@ -33,7 +34,9 @@ class QuranService {
       } catch (error) {
         if (error.code === "ENOENT") {
           reject("Not Found");
+          throw new Error("Not Found");
         } else {
+          reject(error);
           throw error;
         }
       }
