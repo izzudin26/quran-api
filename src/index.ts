@@ -23,3 +23,5 @@ const app = new App().app;
 app.listen(port, () => {
   console.log(`Running on http://[::]:${port}`);
 });
+
+module.exports = app.listen(8000);

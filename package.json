@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cd node_modules/mocha/bin && mocha",
+    "test": "cd node_modules/mocha/bin && mocha ../../../test/index.js",
     "build": "cd node_modules/typescript/bin && tsc",
     "start": "node build/index.js"
   },
